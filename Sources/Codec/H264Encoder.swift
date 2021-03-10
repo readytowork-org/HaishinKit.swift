@@ -162,6 +162,8 @@ public final class H264Encoder {
     }
     private var invalidateSession = true
     private var lastImageBuffer: CVImageBuffer?
+    
+    public var pauseImageBuffer: CVImageBuffer?
 
     // @see: https://developer.apple.com/library/mac/releasenotes/General/APIDiffsMacOSX10_8/VideoToolbox.html
     private var properties: [NSString: NSObject] {
@@ -257,16 +259,13 @@ public final class H264Encoder {
         var flags: VTEncodeInfoFlags = []
         VTCompressionSessionEncodeFrame(
             session,
-            imageBuffer: muted ? lastImageBuffer ?? imageBuffer : imageBuffer,
+            imageBuffer: muted ? pauseImageBuffer ?? imageBuffer : imageBuffer,
             presentationTimeStamp: presentationTimeStamp,
             duration: duration,
             frameProperties: nil,
             sourceFrameRefcon: nil,
             infoFlagsOut: &flags
         )
-        if !muted || lastImageBuffer == nil {
-            lastImageBuffer = imageBuffer
-        }
     }
 
     private func setProperty(_ key: CFString, _ value: CFTypeRef?) {
