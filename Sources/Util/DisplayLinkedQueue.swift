@@ -10,7 +10,7 @@ protocol DisplayLinkedQueueDelegate: class {
     func empty()
 }
 
-protocol DisplayLinkedQueueClockReference: class {
+public protocol DisplayLinkedQueueClockReference: class {
     var duration: TimeInterval { get }
 }
 

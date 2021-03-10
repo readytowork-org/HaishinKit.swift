@@ -11,7 +11,7 @@ protocol AVMixerDelegate: class {
     func didOutputVideo(_ buffer: CMSampleBuffer)
 }
 
-public class AVMixer {
+open class AVMixer {
     public static let bufferEmpty: Notification.Name = .init("AVMixerBufferEmpty")
 
     public static let defaultFPS: Float64 = 30
@@ -131,7 +131,7 @@ public class AVMixer {
     }
 
     private var _audioIO: AudioIOComponent?
-    var audioIO: AudioIOComponent! {
+    public var audioIO: AudioIOComponent! {
         if _audioIO == nil {
             _audioIO = AudioIOComponent(mixer: self)
         }
@@ -139,7 +139,7 @@ public class AVMixer {
     }
 
     private var _videoIO: VideoIOComponent?
-    var videoIO: VideoIOComponent! {
+    public var videoIO: VideoIOComponent! {
         if _videoIO == nil {
             _videoIO = VideoIOComponent(mixer: self)
         }

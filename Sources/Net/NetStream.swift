@@ -12,7 +12,7 @@ open class NetStream: NSObject {
         return queue
     }()
 
-    open private(set) var mixer = AVMixer()
+    open var mixer = AVMixer()
     open var metadata: [String: Any?] = [:]
     open var context: CIContext? {
         get { mixer.videoIO.context }
